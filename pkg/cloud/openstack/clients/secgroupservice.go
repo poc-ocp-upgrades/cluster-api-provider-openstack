@@ -22,9 +22,13 @@ type SecGroupService struct{ client *gophercloud.ServiceClient }
 func NewSecGroupService(client *gophercloud.ServiceClient) (*SecGroupService, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &SecGroupService{client: client}, nil
 }
 func (s *SecGroupService) Reconcile(clusterName string, desired openstackconfigv1.OpenstackClusterProviderSpec, status *openstackconfigv1.OpenstackClusterProviderStatus) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Reconciling security groups for cluster %s", clusterName)
@@ -63,16 +67,22 @@ func (s *SecGroupService) Reconcile(clusterName string, desired openstackconfigv
 func (s *SecGroupService) generateControlPlaneGroup(clusterName string) openstackconfigv1.SecurityGroup {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secGroupName := fmt.Sprintf("%s-cluster-%s-secgroup-%s", secGroupPrefix, clusterName, controlPlaneSuffix)
 	return openstackconfigv1.SecurityGroup{Name: secGroupName, Rules: append([]openstackconfigv1.SecurityGroupRule{{Direction: "ingress", EtherType: "IPv4", PortRangeMin: 443, PortRangeMax: 443, Protocol: "tcp", RemoteIPPrefix: "0.0.0.0/0"}, {Direction: "ingress", EtherType: "IPv4", PortRangeMin: 22, PortRangeMax: 22, Protocol: "tcp", RemoteIPPrefix: "0.0.0.0/0"}}, defaultRules...)}
 }
 func (s *SecGroupService) generateGlobalGroup(clusterName string) openstackconfigv1.SecurityGroup {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secGroupName := fmt.Sprintf("%s-cluster-%s-secgroup-%s", secGroupPrefix, clusterName, globalSuffix)
 	return openstackconfigv1.SecurityGroup{Name: secGroupName, Rules: append([]openstackconfigv1.SecurityGroupRule{{Direction: "ingress", EtherType: "IPv4", PortRangeMin: 1, PortRangeMax: 65535, Protocol: "tcp", RemoteGroupID: "self"}, {Direction: "ingress", EtherType: "IPv4", PortRangeMin: 1, PortRangeMax: 65535, Protocol: "udp", RemoteGroupID: "self"}, {Direction: "ingress", EtherType: "IPv4", PortRangeMin: 0, PortRangeMax: 0, Protocol: "icmp", RemoteGroupID: "self"}}, defaultRules...)}
 }
 func (s *SecGroupService) matchGroups(desired, observed *openstackconfigv1.SecurityGroup) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(desired.Rules) != len(observed.Rules) {
@@ -97,6 +107,8 @@ func (s *SecGroupService) matchGroups(desired, observed *openstackconfigv1.Secur
 	return true
 }
 func (s *SecGroupService) reconcileGroup(desired, observed *openstackconfigv1.SecurityGroup) (*openstackconfigv1.SecurityGroup, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(6).Infof("Deleting all rules for group %s", observed.Name)
@@ -127,6 +139,8 @@ func (s *SecGroupService) reconcileGroup(desired, observed *openstackconfigv1.Se
 func (s *SecGroupService) createSecGroup(group openstackconfigv1.SecurityGroup) (*openstackconfigv1.SecurityGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	createOpts := groups.CreateOpts{Name: group.Name, Description: "Cluster API managed group"}
 	klog.V(6).Infof("Creating group %+v", createOpts)
 	g, err := groups.Create(s.client, createOpts).Extract()
@@ -154,6 +168,8 @@ func (s *SecGroupService) createSecGroup(group openstackconfigv1.SecurityGroup) 
 func (s *SecGroupService) getSecurityGroupByName(name string) (*openstackconfigv1.SecurityGroup, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opts := groups.ListOpts{Name: name}
 	klog.V(6).Infof("Attempting to fetch security group with name %s", name)
 	allPages, err := groups.List(s.client, opts).AllPages()
@@ -175,6 +191,8 @@ func (s *SecGroupService) getSecurityGroupByName(name string) (*openstackconfigv
 func (s *SecGroupService) createRule(r openstackconfigv1.SecurityGroupRule) (openstackconfigv1.SecurityGroupRule, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := rules.RuleDirection(r.Direction)
 	proto := rules.RuleProtocol(r.Protocol)
 	etherType := rules.RuleEtherType(r.EtherType)
@@ -189,6 +207,8 @@ func (s *SecGroupService) createRule(r openstackconfigv1.SecurityGroupRule) (ope
 func (s *SecGroupService) convertOSSecGroupToConfigSecGroup(osSecGroup groups.SecGroup) *openstackconfigv1.SecurityGroup {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rules := make([]openstackconfigv1.SecurityGroupRule, len(osSecGroup.Rules))
 	for i, rule := range osSecGroup.Rules {
 		rules[i] = s.convertOSSecGroupRuleToConfigSecGroupRule(rule)
@@ -196,6 +216,8 @@ func (s *SecGroupService) convertOSSecGroupToConfigSecGroup(osSecGroup groups.Se
 	return &openstackconfigv1.SecurityGroup{ID: osSecGroup.ID, Name: osSecGroup.Name, Rules: rules}
 }
 func (s *SecGroupService) convertOSSecGroupRuleToConfigSecGroupRule(osSecGroupRule rules.SecGroupRule) openstackconfigv1.SecurityGroupRule {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return openstackconfigv1.SecurityGroupRule{ID: osSecGroupRule.ID, Direction: osSecGroupRule.Direction, EtherType: osSecGroupRule.EtherType, SecurityGroupID: osSecGroupRule.SecGroupID, PortRangeMin: osSecGroupRule.PortRangeMin, PortRangeMax: osSecGroupRule.PortRangeMax, Protocol: osSecGroupRule.Protocol, RemoteGroupID: osSecGroupRule.RemoteGroupID, RemoteIPPrefix: osSecGroupRule.RemoteIPPrefix}

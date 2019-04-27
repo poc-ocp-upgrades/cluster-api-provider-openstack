@@ -18,6 +18,8 @@ type instanceStatus *machinev1.Machine
 func (oc *OpenstackClient) instanceStatus(machine *machinev1.Machine) (instanceStatus, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	currentMachine, err := GetMachineIfExists(oc.client, machine.Namespace, machine.Name)
 	if err != nil {
 		return nil, err
@@ -28,6 +30,8 @@ func (oc *OpenstackClient) instanceStatus(machine *machinev1.Machine) (instanceS
 	return oc.machineInstanceStatus(currentMachine)
 }
 func GetMachineIfExists(c client.Client, namespace, name string) (*machinev1.Machine, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c == nil {
@@ -47,6 +51,8 @@ func GetMachineIfExists(c client.Client, namespace, name string) (*machinev1.Mac
 func (oc *OpenstackClient) updateInstanceStatus(machine *machinev1.Machine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	status := instanceStatus(machine)
 	currentMachine, err := GetMachineIfExists(oc.client, machine.Namespace, machine.Name)
 	if err != nil {
@@ -62,6 +68,8 @@ func (oc *OpenstackClient) updateInstanceStatus(machine *machinev1.Machine) erro
 	return oc.client.Update(nil, m)
 }
 func (oc *OpenstackClient) machineInstanceStatus(machine *machinev1.Machine) (instanceStatus, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if machine.ObjectMeta.Annotations == nil {
@@ -80,6 +88,8 @@ func (oc *OpenstackClient) machineInstanceStatus(machine *machinev1.Machine) (in
 	return instanceStatus(&status), nil
 }
 func (oc *OpenstackClient) setMachineInstanceStatus(machine *machinev1.Machine, status instanceStatus) (*machinev1.Machine, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	status.ObjectMeta.Annotations[InstanceStatusAnnotationKey] = ""

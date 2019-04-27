@@ -21,6 +21,8 @@ var (
 func ClusterSpecFromProviderSpec(providerSpec clusterv1.ProviderSpec) (*OpenstackClusterProviderSpec, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if providerSpec.Value == nil {
 		return nil, errors.New("no such providerSpec found in manifest")
 	}
@@ -31,6 +33,8 @@ func ClusterSpecFromProviderSpec(providerSpec clusterv1.ProviderSpec) (*Openstac
 	return &config, nil
 }
 func ClusterStatusFromProviderStatus(extension *runtime.RawExtension) (*OpenstackClusterProviderStatus, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if extension == nil {
@@ -45,6 +49,8 @@ func ClusterStatusFromProviderStatus(extension *runtime.RawExtension) (*Openstac
 func MachineSpecFromProviderSpec(providerSpec machinev1.ProviderSpec) (*OpenstackProviderSpec, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if providerSpec.Value == nil {
 		return nil, errors.New("no such providerSpec found in manifest")
 	}
@@ -55,6 +61,8 @@ func MachineSpecFromProviderSpec(providerSpec machinev1.ProviderSpec) (*Openstac
 	return &config, nil
 }
 func EncodeClusterStatus(status *OpenstackClusterProviderStatus) (*runtime.RawExtension, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if status == nil {

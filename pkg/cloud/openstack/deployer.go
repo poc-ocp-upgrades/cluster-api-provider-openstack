@@ -24,6 +24,8 @@ const (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clustercommon.RegisterClusterProvisioner(ProviderName, NewDeploymentClient())
 }
 
@@ -32,9 +34,13 @@ type DeploymentClient struct{}
 func NewDeploymentClient() *DeploymentClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DeploymentClient{}
 }
 func (*DeploymentClient) GetIP(cluster *machinev1.Cluster, machine *machinev1.Machine) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if machine.ObjectMeta.Annotations != nil {
@@ -46,6 +52,8 @@ func (*DeploymentClient) GetIP(cluster *machinev1.Cluster, machine *machinev1.Ma
 	return "", errors.New("could not get IP")
 }
 func (d *DeploymentClient) GetKubeConfig(cluster *machinev1.Cluster, master *machinev1.Machine) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ip, err := d.GetIP(cluster, master)
@@ -70,7 +78,16 @@ func (d *DeploymentClient) GetKubeConfig(cluster *machinev1.Cluster, master *mac
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

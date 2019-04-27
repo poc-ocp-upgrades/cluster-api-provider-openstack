@@ -140,6 +140,8 @@ type Router struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SchemeBuilder.Register(&OpenstackProviderSpec{})
 	SchemeBuilder.Register(&OpenstackClusterProviderSpec{})
 	SchemeBuilder.Register(&OpenstackClusterProviderStatus{})

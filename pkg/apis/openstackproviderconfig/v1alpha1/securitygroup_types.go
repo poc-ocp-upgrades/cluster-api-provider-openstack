@@ -20,5 +20,7 @@ type SecurityGroupRule struct {
 func (r SecurityGroupRule) Equal(x SecurityGroupRule) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return (r.Direction == x.Direction && r.EtherType == x.EtherType && r.PortRangeMin == x.PortRangeMin && r.PortRangeMax == x.PortRangeMax && r.Protocol == x.Protocol && r.RemoteGroupID == x.RemoteGroupID && r.RemoteIPPrefix == x.RemoteIPPrefix)
 }

@@ -15,6 +15,8 @@ value:
 func TestNodeStartupScriptEmpty(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := &machinev1.Cluster{}
 	machine := &machinev1.Machine{}
 	err := yaml.Unmarshal([]byte(providerSpecYAML), &machine.Spec.ProviderSpec)
@@ -36,6 +38,8 @@ func TestNodeStartupScriptEmpty(t *testing.T) {
 func TestNodeStartupScriptEndpointError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cluster := &machinev1.Cluster{}
 	machine := &machinev1.Machine{}
 	err := yaml.Unmarshal([]byte(providerSpecYAML), &machine.Spec.ProviderSpec)
@@ -51,6 +55,8 @@ func TestNodeStartupScriptEndpointError(t *testing.T) {
 	}
 }
 func TestNodeStartupScriptWithEndpoint(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cluster := machinev1.Cluster{}

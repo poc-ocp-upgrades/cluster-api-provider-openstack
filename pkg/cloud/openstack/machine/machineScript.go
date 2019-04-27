@@ -22,8 +22,12 @@ type setupParams struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func masterStartupScript(cluster *machinev1.Cluster, machine *machinev1.Machine, script string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineSpec, err := openstackconfigv1.MachineSpecFromProviderSpec(machine.Spec.ProviderSpec)
@@ -43,6 +47,8 @@ func masterStartupScript(cluster *machinev1.Cluster, machine *machinev1.Machine,
 	return buf.String(), nil
 }
 func nodeStartupScript(cluster *machinev1.Cluster, machine *machinev1.Machine, token, script string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineSpec, err := openstackconfigv1.MachineSpecFromProviderSpec(machine.Spec.ProviderSpec)
@@ -72,9 +78,13 @@ func nodeStartupScript(cluster *machinev1.Cluster, machine *machinev1.Machine, t
 func getEndpoint(apiEndpoint machinev1.APIEndpoint) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s:%d", apiEndpoint.Host, apiEndpoint.Port)
 }
 func getSubnet(netRange machinev1.NetworkRanges) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(netRange.CIDRBlocks) == 0 {

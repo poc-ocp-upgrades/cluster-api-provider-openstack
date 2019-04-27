@@ -22,9 +22,13 @@ type NetworkService struct{ client *gophercloud.ServiceClient }
 func NewNetworkService(client *gophercloud.ServiceClient) (*NetworkService, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &NetworkService{client: client}, nil
 }
 func (s *NetworkService) Reconcile(clusterName string, desired openstackconfigv1.OpenstackClusterProviderSpec, status *openstackconfigv1.OpenstackClusterProviderStatus) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Reconciling network components for cluster %s", clusterName)
@@ -67,6 +71,8 @@ func (s *NetworkService) Reconcile(clusterName string, desired openstackconfigv1
 func (s *NetworkService) reconcileNetwork(clusterName, networkName string, desired openstackconfigv1.OpenstackClusterProviderSpec) (openstackconfigv1.Network, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("Reconciling network %s", networkName)
 	emptyNetwork := openstackconfigv1.Network{}
 	res, err := s.getNetworkByName(networkName)
@@ -88,6 +94,8 @@ func (s *NetworkService) reconcileNetwork(clusterName, networkName string, desir
 	return openstackconfigv1.Network{ID: network.ID, Name: network.Name}, nil
 }
 func (s *NetworkService) reconcileSubnets(clusterName, name string, desired openstackconfigv1.OpenstackClusterProviderSpec, network openstackconfigv1.Network) (openstackconfigv1.Subnet, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Reconciling subnet %s", name)
@@ -120,6 +128,8 @@ func (s *NetworkService) reconcileSubnets(clusterName, name string, desired open
 	return observedSubnet, nil
 }
 func (s *NetworkService) reconcileRouter(clusterName, name string, desired openstackconfigv1.OpenstackClusterProviderSpec, network openstackconfigv1.Network) (openstackconfigv1.Router, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Reconciling router %s", name)
@@ -187,6 +197,8 @@ INTERFACE_LOOP:
 func (s *NetworkService) getRouterInterfaces(routerID string) ([]ports.Port, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	allPages, err := ports.List(s.client, ports.ListOpts{DeviceID: routerID}).AllPages()
 	if err != nil {
 		return []ports.Port{}, err
@@ -198,6 +210,8 @@ func (s *NetworkService) getRouterInterfaces(routerID string) ([]ports.Port, err
 	return portList, nil
 }
 func (s *NetworkService) getNetworkByName(networkName string) (networks.Network, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	opts := networks.ListOpts{Name: networkName}

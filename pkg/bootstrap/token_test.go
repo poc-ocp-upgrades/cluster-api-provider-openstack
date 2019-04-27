@@ -14,6 +14,8 @@ var (
 func TestGenerateTokenSecret(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_ = &v1.Secret{ObjectMeta: metav1.ObjectMeta{}}
 	testcases := []struct {
 		name		string
